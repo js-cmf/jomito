@@ -2,6 +2,7 @@ const Post = require('../models/post');
 
 let postController = {};
 
+// creating the post on mongo
 postController.createPost = (req, res) => {
   let body = '';
   req.on('data', function(data) {
@@ -21,6 +22,14 @@ postController.createPost = (req, res) => {
     });
 
     res.sendStatus(200);
+  });
+};
+
+//listing all the posts
+postController.getAllPosts = (req, res) => {
+  Post.find({}, (err, result) => {
+    if (err) return handleError(err);
+    return res.json(result); 
   });
 };
 
