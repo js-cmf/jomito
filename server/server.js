@@ -27,6 +27,9 @@ app.get('/api/posts', postController.getAllPosts);
 // listing a specific post
 app.get('/api/post/:post_id', postController.getPostById);
 
+// updating a specific post
+app.put('/api/post/:post_id', postController.updatePostById);
+
 // ** user **
 // user creation route
 app.post('/api/user', userController.createUser);
@@ -37,6 +40,8 @@ app.get('/api/users', userController.getAllUsers);
 // listing all the users
 app.get('/api/user/:user_id', userController.getUserById);
 
+// updating a specific user
+app.put('/api/user/:user_id', userController.updateUserById);
 
 
 // spinning up the server 

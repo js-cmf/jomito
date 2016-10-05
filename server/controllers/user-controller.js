@@ -24,16 +24,25 @@ userController.createUser = (req, res) => {
 // list all users
 userController.getAllUsers = (req, res) => {
   User.find({}, (err, result) => {
-    if (err) return handleError(err);
+    if (err) return res.status(500).send(err);
     return res.json(result); 
   });
 };
 
 // listing a specific user by id
 userController.getUserById = (req, res) => {
-  User.findOne({'_id': req.params.user_id}, (err, result) => {
-    if (err) return handleError(err);
+  User.findById(req.params.user_id, (err, result) => {
+    if (err) return res.status(500).send(err);
     return res.json(result); 
   });
 };
+
+//updating user by id
+userController.updateUserById = (req, res) => {
+  User.findByIdAndUpdate(req.params.user_id, req.body, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send(result);
+  });
+};
+
 module.exports = userController;
