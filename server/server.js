@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const dbConfig = require('./db.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const postController = require('./controllers/post-controller');
 const userController = require('./controllers/user-controller');
 
-
-mongoose.connect('mongodb://jomito:j0m1t0CS@ds049496.mlab.com:49496/jomito', function(err) {
+//connecting to the database
+mongoose.connect(dbConfig.url, function(err) {
   if (err) return console.error(err);
   console.log('connected to mongoDB @ mlab');
 });
