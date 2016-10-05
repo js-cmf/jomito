@@ -30,6 +30,10 @@ app.get('/api/post/:post_id', postController.getPostById);
 // updating a specific post
 app.put('/api/post/:post_id', postController.updatePostById);
 
+// deleting a specific post
+app.delete('/api/post/:post_id', postController.deletePostById);
+
+
 // ** user **
 // user creation route
 app.post('/api/user', userController.createUser);
@@ -43,6 +47,8 @@ app.get('/api/user/:user_id', userController.getUserById);
 // updating a specific user
 app.put('/api/user/:user_id', userController.updateUserById);
 
+// deleting a specific user
+app.delete('/api/user/:user_id', userController.deleteUserById);
 
 // spinning up the server 
 app.listen(3000, function () {
