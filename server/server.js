@@ -23,7 +23,10 @@ app.post('/api/post', postController.createPost);
 
 // ** user **
 // user creation route
-app.post('/api/user', userController.createUser, (req,res) => { console.log('after next middleware')});
+app.post('/api/user', userController.createUser);
+
+// listing all the users
+app.get('/api/users', userController.getAllUsers);
 
 
 // spinning up the server 
