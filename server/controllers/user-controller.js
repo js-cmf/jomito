@@ -21,6 +21,7 @@ userController.createUser = (req, res) => {
   res.sendStatus(200);
 };
 
+// list all users
 userController.getAllUsers = (req, res) => {
   User.find({}, (err, result) => {
     if (err) return handleError(err);
@@ -28,5 +29,11 @@ userController.getAllUsers = (req, res) => {
   });
 };
 
-
+// listing a specific user by id
+userController.getUserById = (req, res) => {
+  User.findOne({'_id': req.params.user_id}, (err, result) => {
+    if (err) return handleError(err);
+    return res.json(result); 
+  });
+};
 module.exports = userController;

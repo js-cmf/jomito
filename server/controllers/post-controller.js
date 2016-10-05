@@ -33,4 +33,12 @@ postController.getAllPosts = (req, res) => {
   });
 };
 
+//listing post by id
+postController.getPostById = (req, res) => {
+  Post.findOne({'_id': req.params.post_id}, (err, result) => {
+    if (err) return handleError(err);
+    return res.json(result); 
+  });
+};
+
 module.exports = postController;
