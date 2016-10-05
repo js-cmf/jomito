@@ -1,17 +1,11 @@
 // user.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
-// var SALT_WORK_FACTOR = 10;
-// var bcrypt = require('bcryptjs');
+const SALT_WORK_FACTOR = 10;
 
-// userSchema.pre('save', function(next) {
-//  var salt = bcrypt.genSaltSync(10);
-//  var hash = bcrypt.hashSync(this.password, salt);
-//  this.password = hash;
-//   next();
-// });
-
+// user schema
 const userSchema = new Schema({
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
@@ -20,6 +14,15 @@ const userSchema = new Schema({
   updated_at: { type: Date, required: true, default: Date.now },
   user_type: {type: Array, required: true, default: ['admin']},
   token: String
+});
+
+// hashing user's password
+userSchema.pre('save', function(next) {
+  console.log('inside save');
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(this.password, salt);
+  this.password = hash;
+  next();
 });
 
 module.exports = mongoose.model('User', userSchema);

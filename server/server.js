@@ -13,7 +13,9 @@ mongoose.connect('mongodb://jomito:j0m1t0CS@ds049496.mlab.com:49496/jomito', fun
 });
 
 // serving static from client folder
-app.use(express.static('client'));  
+app.use(bodyParser.json());
+app.use(express.static('client'));
+
 
 // ** post ** 
 // post creation route
@@ -21,7 +23,7 @@ app.post('/api/post', postController.createPost);
 
 // ** user **
 // user creation route
-app.post('/api/user', userController.createUser);
+app.post('/api/user', userController.createUser, (req,res) => { console.log('after next middleware')});
 
 
 // spinning up the server 

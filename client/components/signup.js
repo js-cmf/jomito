@@ -31,7 +31,7 @@
 				// redirect with user data
 			}			
 		}
-		xhr.open('POST', '/signup');
+		xhr.open('POST', '/api/user');
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify(userData));
 	}
