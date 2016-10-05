@@ -4,25 +4,18 @@ let postController = {};
 
 // creating the post on mongo
 postController.createPost = (req, res) => {
-  let body = '';
-  req.on('data', function(data) {
-      body += data;
+  let bodyObj = req.body;
+
+  var newPost = new Post();
+  newPost.title = bodyObj.title;
+  newPost.body = bodyObj.body;
+  newPost.user_id = bodyObj.user_id;
+
+  newPost.save(function(err){
+    if (err) throw err;
   });
 
-  req.on('end', function (){
-    let bodyObj = JSON.parse(body);
-
-    var newPost = new Post();
-    newPost.title = bodyObj.title;
-    newPost.body = bodyObj.body;
-    newPost.user_id = bodyObj.user_id;
-
-    newPost.save(function(err){
-      if (err) throw err;
-    });
-
-    res.sendStatus(200);
-  });
+  res.sendStatus(200);
 };
 
 //listing all the posts
@@ -46,6 +39,14 @@ postController.updatePostById = (req, res) => {
   Post.findByIdAndUpdate(req.params.post_id, req.body, (err, result) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(result);
+  });
+};
+
+//deleting post by id
+postController.deletePostById = (req, res) => {
+  Post.findByIdAndRemove(req.params.post_id, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send('post deleted!');
   });
 };
 

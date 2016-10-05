@@ -33,7 +33,11 @@ userController.getAllUsers = (req, res) => {
 userController.getUserById = (req, res) => {
   User.findById(req.params.user_id, (err, result) => {
     if (err) return res.status(500).send(err);
-    return res.json(result); 
+    if (result) {
+      return res.json(result); 
+    } else {
+      return res.status(500).send("user not found");
+    }
   });
 };
 
@@ -42,6 +46,14 @@ userController.updateUserById = (req, res) => {
   User.findByIdAndUpdate(req.params.user_id, req.body, (err, result) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(result);
+  });
+};
+
+//deleting user by id
+userController.deleteUserById = (req, res) => {
+  User.findByIdAndRemove(req.params.user_id, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send('post deleted');
   });
 };
 
