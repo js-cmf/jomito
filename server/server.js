@@ -21,6 +21,9 @@ app.use(express.static('client'));
 // post creation route
 app.post('/api/post', postController.createPost);
 
+// listing all the posts
+app.get('/api/posts', postController.getAllPosts);
+
 // ** user **
 // user creation route
 app.post('/api/user', userController.createUser);
