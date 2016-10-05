@@ -24,12 +24,19 @@ app.post('/api/post', postController.createPost);
 // listing all the posts
 app.get('/api/posts', postController.getAllPosts);
 
+// listing a specific post
+app.get('/api/post/:post_id', postController.getPostById);
+
 // ** user **
 // user creation route
 app.post('/api/user', userController.createUser);
 
 // listing all the users
 app.get('/api/users', userController.getAllUsers);
+
+// listing all the users
+app.get('/api/user/:user_id', userController.getUserById);
+
 
 
 // spinning up the server 
