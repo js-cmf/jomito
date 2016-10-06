@@ -19,8 +19,7 @@
 		console.log(data)
 		data.forEach((collection) => {
 
-		let collectionTemplate = '<div class="collection-container" data-collection-id=' + collection._id + '><h3 class="collection-title">' + collection.title + '</h3><div id="collection' + collection._id + '"class="collection"><div class="collection-header"></div><div class="collection-data-row"></div></div><button onclick="addCollectionData(this)">Add Data</button></div>';
-		let formTemplate = '<form></form>'
+		let collectionTemplate = '<div class="collection-container" data-collection-id=' + collection._id + '><h3 class="collection-title">' + collection.title + '<button onclick="deleteCollection(this)">delete collection</button></h3><div id="collection' + collection._id + '"class="collection"><div class="collection-header"></div><div class="collection-data-row"></div></div><button onclick="addCollectionData(this)">Add Data</button></div>';
 
 		collectionsContainer.innerHTML += collectionTemplate;
 
@@ -38,6 +37,19 @@
 function addCollectionData(e) {
 	let collectionId = e.parentNode.getAttribute('data-collection-id');
 	console.log(collectionId)
+}
+
+function deleteCollection(e) {
+	let collectionId = e.parentNode.parentNode.getAttribute('data-collection-id');
+
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if(xhr.status === 200 && xhr.readyState === 4) {
+			console.log(xhr.responseText);
+		}			
+	}
+	xhr.open('DELETE', '/api/collection/' + collectionId);
+	xhr.send();
 }
 
 
