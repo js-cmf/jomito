@@ -38,7 +38,6 @@
 function addCollectionData(e) {
 	let collectionId = e.parentNode.getAttribute('data-collection-id');
 	console.log(collectionId)
-	let formTemplate = '<form></form>'
 }
 
 
