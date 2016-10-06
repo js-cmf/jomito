@@ -41,10 +41,10 @@
 		req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 		req.send(JSON.stringify(data));
 	}
-	const a = document.getElementById('test-btn');
-        // NOTE: showAlert(); or showAlert(param); will NOT work here.
-        // Must be a reference to a function name, not a function call.
-        a.onclick = getAllPost;
+	// const a = document.getElementById('test-btn');
+	// a.onclick = getAllPost;
+	const posts = document.getElementById('post-list');
+	// console.log(posts)
 	function getAllPost() {
 		console.log('in get post')
 		var req = new XMLHttpRequest();
@@ -54,6 +54,12 @@
 				// Success!
 				var data = JSON.parse(req.responseText);
 				console.log(data);
+				data.forEach(function (item) {
+					let list = document.createElement("li");
+					list.textContent = item.title;
+					posts.appendChild(list);
+					console.log(list);
+				});
 			} else {
 				// We reached our target server, but it returned an error
 				console.log('error dawg')
@@ -65,7 +71,12 @@
 		};
 
 		req.send();
-	}
+	};
+	getAllPost();
+	// function 	
+	
+
+	
 
 })();
 console.log('we loaded')
