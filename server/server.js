@@ -10,6 +10,7 @@ const postController = require('./controllers/post-controller');
 const userController = require('./controllers/user-controller');
 const sessionController = require('./controllers/session-controller');
 const cookieController = require('./controllers/cookie-controller');
+const collectionController = require('./controllers/collection-controller');
 
 //connecting to the database
 mongoose.connect(dbConfig.url, function(err) {
@@ -77,6 +78,12 @@ app.put('/api/user/:user_id', userController.updateUserById);
 
 // deleting a specific user
 app.delete('/api/user/:user_id', userController.deleteUserById);
+
+// ** collection **
+// collection creation route
+app.post('/api/collection', collectionController.createCollection);
+// listing all the collections
+app.get('/api/collections', collectionController.getAllCollections);
 
 // spinning up the server 
 app.listen(3000, function () {
