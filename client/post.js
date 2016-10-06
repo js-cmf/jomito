@@ -74,7 +74,9 @@
 	};
 	getAllPost();
 	// function 	
-	
+	function getSinglePost() {
+		
+	};
 
 	
 
