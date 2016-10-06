@@ -28,7 +28,8 @@
 		collectionData.user_id = 1;
 		// end mock user
 		collectionData.title = collectionTitle;
-		collectionData.properties = collectionProperties;
+		collectionData.properties = [];
+		collectionData.properties.push(collectionProperties);
 		return collectionData;
 	}
 
@@ -40,11 +41,10 @@
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = () => {
 			if(xhr.status === 200 && xhr.readyState === 4) {
-				console.log(JSON.parse(xhr.responseText));
-				// redirect with user data
+				console.log(xhr.responseText);
 			}			
 		}
-		xhr.open('POST', 'api/collections');
+		xhr.open('POST', '/api/collection');
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify(collectionData));
 	}
