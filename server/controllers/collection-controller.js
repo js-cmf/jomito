@@ -3,23 +3,25 @@ const Collection = require('../models/collection');
 
 let collectionController = {};
 
-// creating the post on mongo
+// creating the collection on mongo
 collectionController.createCollection = (req, res) => {
   let bodyObj = req.body;
+  console.log(bodyObj)
 
   let newCollection = new Collection();
   newCollection.title = bodyObj.title;
-  newCollection.properties = bodyObj.body;
+  newCollection.collection_properties = bodyObj.properties;
   newCollection.user_id = bodyObj.user_id;
+  console.log(newCollection)
 
   newCollection.save(function(err){
     if (err) throw err;
   });
 
-  res.sendStatus(200);
+  return res.sendStatus(200);
 };
 
-//listing all the posts
+//listing all the collection
 collectionController.getAllCollections = (req, res) => {
   Collection.find({}, (err, result) => {
     if (err) return res.status(500).send(err);
@@ -27,7 +29,7 @@ collectionController.getAllCollections = (req, res) => {
   });
 };
 
-// //listing post by id
+// //listing collection by id
 // collectionController.getCollectionById = (req, res) => {
 //   Collection.findById(req.params.post_id, (err, result) => {
 //     if (err) return res.status(500).send(err);
@@ -35,7 +37,7 @@ collectionController.getAllCollections = (req, res) => {
 //   });
 // };
 
-// //updating post by id
+// //updating collection by id
 // collectionController.updateCollectionById = (req, res) => {
 //   Collection.findByIdAndUpdate(req.params.post_id, req.body, (err, result) => {
 //     if (err) return res.status(500).send(err);
@@ -43,12 +45,12 @@ collectionController.getAllCollections = (req, res) => {
 //   });
 // };
 
-// //deleting post by id
-// collectionController.deleteCollectionById = (req, res) => {
-//   Collection.findByIdAndRemove(req.params.post_id, (err, result) => {
-//     if (err) return res.status(500).send(err);
-//     return res.status(200).send('post deleted!');
-//   });
-// };
+// //deleting collection by id
+collectionController.deleteCollectionById = (req, res) => {
+  Collection.findByIdAndRemove(req.params.collection_id, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send('collection deleted!');
+  });
+};
 
 module.exports = collectionController;
