@@ -1,11 +1,14 @@
-// user-controller.js
 const User = require('../models/user');
+const cookieController = require('./cookie-controller');
+const bcrypt = require('bcrypt');
+
 
 let userController = {};
 
 
 // create the user on mongoDB
 userController.createUser = (req, res) => {
+  console.log(req.body);
 
   let bodyObj = req.body;
 
@@ -18,7 +21,7 @@ userController.createUser = (req, res) => {
     if (err) throw err;
   });
 
-  res.sendStatus(200);
+  res.status(200).send('user created');
 };
 
 // list all users
@@ -56,5 +59,27 @@ userController.deleteUserById = (req, res) => {
     return res.status(200).send('post deleted');
   });
 };
+
+//verify user's credentials
+userController.verifyUser = (req, res) => {
+  User.findOne({email: req.body.email}, (err,user) => {
+    if (err) return res.status(500).send(err);
+    if (user) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+        console.log("you're right!");
+        cookieController.setSSIDCookie(req, res, user._id);
+        // res.redirect('/secret');
+        res.redirect(301, '/dashboard.html');
+        // return res.status(200).send('sucess!!!'); 
+      }      
+      else {
+        console.log('acess denied');
+        res.redirect(301, '/components/signup.html');
+      }
+    } else {
+      return res.status(500).send("user not found");
+    }     
+  });
+;}
 
 module.exports = userController;

@@ -4,8 +4,11 @@ const fs = require('fs');
 const dbConfig = require('./db.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const postController = require('./controllers/post-controller');
 const userController = require('./controllers/user-controller');
+const sessionController = require('./controllers/session-controller');
+const cookieController = require('./controllers/cookie-controller');
 
 //connecting to the database
 mongoose.connect(dbConfig.url, function(err) {
@@ -13,10 +16,17 @@ mongoose.connect(dbConfig.url, function(err) {
   console.log('connected to mongoDB @ mlab');
 });
 
-// serving static from client folder
+// handling cookies for all requests
+app.use(cookieParser());
+//using bodyParser for json
 app.use(bodyParser.json());
+// serving static from client folder
 app.use(express.static('client'));
 
+
+// ** authentication - authorized routes **
+// login
+app.post('/login', userController.verifyUser);
 
 // ** post ** 
 // post creation route

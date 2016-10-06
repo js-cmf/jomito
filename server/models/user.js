@@ -18,7 +18,6 @@ const userSchema = new Schema({
 
 // hashing user's password
 userSchema.pre('save', function(next) {
-  console.log('inside save');
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;
