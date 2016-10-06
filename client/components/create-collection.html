@@ -5,9 +5,16 @@
 </head>
 <body>
 	<form id="create-collection-form">
-		<label>Name of Collection</label>
-		<input type="text" name="collection-name" placeholder="Collection name" />
-		<input type="text" name="collection-property" placeholder="Collection property" />
+		<label>Create a Collection</label>
+		<input id="collection-title" type="text" name="collection-title" placeholder="Collection name" />
+		<fieldset>
+			<input type="text" name="collection-property" placeholder="Collection property" />
+			<select id="collection-property-type">
+			  <option value="string">text</option>
+			  <option value="number">number</option>
+			  <option value="boolean">boolean</option>
+			</select>
+		</fieldset>
 		<button id="collection-add-property-btn">Add Property</button>
 		<button type="submit" id="create-collection-form-submit">Create Collection</button>
 	</form>
