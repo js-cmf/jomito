@@ -61,22 +61,22 @@ userController.deleteUserById = (req, res) => {
 };
 
 //verify user's credentials
-userController.verifyUser = (req, res) => {
+userController.verifyUser = (req, res, next) => {
   User.findOne({email: req.body.email}, (err,user) => {
     if (err) return res.status(500).send(err);
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         console.log("you're right!");
         cookieController.setSSIDCookie(req, res, user._id);
-        // res.redirect('/secret');
-        res.redirect(301, '/dashboard.html');
+        // res.writeHead(200,{'Content-Type':'text/html'})
+        res.status(302).redirect('/dashboard.html');
         // return res.status(200).send('sucess!!!'); 
-      }      
-      else {
-        console.log('acess denied');
-        res.redirect(301, '/components/signup.html');
+      } else {
+        console.log('access denied... redirecting');
+        res.redirect('/');        
       }
     } else {
+      console.log('user not found');
       return res.status(500).send("user not found");
     }     
   });

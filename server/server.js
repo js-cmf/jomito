@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const path = require('path');
 const dbConfig = require('./db.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,9 +22,22 @@ app.use(cookieParser());
 //using bodyParser for json
 app.use(bodyParser.json());
 // serving static from client folder
+app.use((req, res, next) => {
+  console.log(Date.now(),req.url);
+  console.log(res.get('Content-Type'));
+  next();
+});
 app.use(express.static('client'));
 
-
+// app.get('/login.html', (req, res) => {
+//     res.sendFile(path.join(__dirname + './../client/components/login.html'));
+// });
+// app.get('/login.js', (req, res) => {
+//     res.sendFile(path.join(__dirname + './../client/components/login.js'));
+// });
+app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname + './../client/components/dashboard.html'));
+});
 // ** authentication - authorized routes **
 // login
 app.post('/login', userController.verifyUser);
@@ -33,7 +47,10 @@ app.post('/login', userController.verifyUser);
 app.post('/api/post', postController.createPost);
 
 // listing all the posts
-app.get('/api/posts', postController.getAllPosts);
+app.get('/api/posts', (req, res, next) => {
+  console.log('redirect', req.url);
+  next();
+}, postController.getAllPosts);
 
 // listing a specific post
 app.get('/api/post/:post_id', postController.getPostById);
