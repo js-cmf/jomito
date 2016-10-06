@@ -24,7 +24,9 @@
 			let propertyType = propertiesArr[i].getElementsByTagName('select')[0].value;
 			collectionProperties[propertyName] = propertyType;
 		}
-
+		// mock user
+		collectionData.user_id = 1;
+		// end mock user
 		collectionData.title = collectionTitle;
 		collectionData.properties = collectionProperties;
 		return collectionData;
