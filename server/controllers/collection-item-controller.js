@@ -44,8 +44,14 @@ collectionItemController.getAllCollectionItems = (req, res) => {
 
 // //deleting collection by id
 collectionItemController.deleteCollectionItemById = (req, res) => {
-  console.log('hereee', req.params.item_id)
   CollectionItem.findByIdAndRemove(req.params.item_id, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send('collection deleted!');
+  });
+};
+
+collectionItemController.deleteCollectionItemsById = (req, res) => {
+  CollectionItem.remove({collection_id: req.params.collection_id}, (err, result) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send('collection deleted!');
   });
