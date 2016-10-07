@@ -93,6 +93,8 @@ app.delete('/api/collection/:collection_id', collectionController.deleteCollecti
 app.post('/api/collection_item', collectionItemController.createCollectionItem);
 // getting all the collection items
 app.get('/api/collection_items', collectionItemController.getAllCollectionItems);
+// deleting a specific collection
+app.delete('/api/collection_item/:item_id', collectionItemController.deleteCollectionItemById);
 
 // spinning up the server 
 app.listen(3000, function () {

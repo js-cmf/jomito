@@ -6,13 +6,11 @@ let collectionController = {};
 // creating the collection on mongo
 collectionController.createCollection = (req, res) => {
   let bodyObj = req.body;
-  console.log(bodyObj)
 
   let newCollection = new Collection();
   newCollection.title = bodyObj.title;
   newCollection.collection_properties = bodyObj.properties;
   newCollection.user_id = bodyObj.user_id;
-  console.log(newCollection)
 
   newCollection.save(function(err){
     if (err) throw err;
