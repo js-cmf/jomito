@@ -8,7 +8,7 @@ let userController = {};
 
 // create the user on mongoDB
 userController.createUser = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   let bodyObj = req.body;
 
@@ -19,9 +19,17 @@ userController.createUser = (req, res) => {
 
   newUser.save(function(err){
     if (err) throw err;
+  }).then(() => {
+    User.findOne({email: newUser.email}, (err,user) => {
+      if (err) return res.status(500).send(err);
+      if (user) {
+        cookieController.setSSIDCookie(req, res, user._id);
+        res.redirect('/dashboard.html');        
+      } else {
+        res.status(500).send('no user for you');
+      }
+    })
   });
-
-  res.status(200).send('user created');
 };
 
 // list all users
