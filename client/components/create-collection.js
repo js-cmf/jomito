@@ -36,7 +36,6 @@
 	function submitCollection(e) {
 		e.preventDefault();
 		let collectionData = gatherCollectionData();
-		console.log(collectionData)
 
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = () => {
