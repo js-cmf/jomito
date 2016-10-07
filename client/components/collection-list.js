@@ -69,14 +69,18 @@ function renderCollectionData(data){
 		let collectionDiv = document.getElementById('collection' + item.collection_id);
 		// create a new data row
 		let itemRow = document.createElement('div');
+		itemRow.setAttribute('data-item-id', item._id)
 		// get properties/values object for this item
 		let itemProps = item.item_properties[0]
+		// remove item button
+		let removeBtn = '<button onclick="removeItem(this)">remove</button>'
 
 		// for each property create a new cell and append to the data row
 		for (let property in itemProps) {
 			let collectionCol = '<div class="collection-header-col">' + itemProps[property] + '</div>'
 			itemRow.innerHTML += collectionCol;
 		}
+		itemRow.innerHTML += removeBtn;
 		// append row to the collection
 		collectionDiv.getElementsByClassName('collection-data')[0].appendChild(itemRow);
 	});
@@ -137,6 +141,18 @@ function deleteCollection(e) {
 	}
 	xhr.open('DELETE', '/api/collection/' + collectionId);
 	xhr.send();
+}
+
+function removeItem(e) {
+	let itemId = e.parentNode.getAttribute('data-item-id');
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if(xhr.status === 200 && xhr.readyState === 4) {
+			console.log(xhr.responseText);
+		}			
+	}
+	xhr.open('DELETE', '/api/collection_item/' + itemId);
+	xhr.send();	
 }
 
 // start it off, go get the collections
