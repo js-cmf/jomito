@@ -15,7 +15,7 @@ sessionController.isLoggedIn = (req, res, next) => {
   Session.findOne({cookieId: req.cookies.ssid}, (err, session) => {
   	if (err) throw err;
   	if (session){
-  		if(session.cookieId === req.cookies.ssid){
+  		if (session.cookieId === req.cookies.ssid){
   			console.log('session is active',req.cookies);
   			next();
   		}
