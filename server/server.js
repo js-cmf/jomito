@@ -19,6 +19,12 @@ mongoose.connect(dbConfig.url, function(err) {
   console.log('connected to mongoDB @ mlab');
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // handling cookies for all requests
 app.use(cookieParser());
 //using bodyParser for json
