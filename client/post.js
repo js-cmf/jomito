@@ -30,6 +30,7 @@
 			alert('title and post required');
 		}
 	}
+	
 	function createUri(str) {
 		return str.replace(/ /g,"-");
 	}
