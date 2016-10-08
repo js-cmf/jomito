@@ -27,6 +27,10 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log(Date.now(),req.url);
   console.log(res.get('Content-Type'));
+  // Cors
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
 app.use(express.static('client'));
