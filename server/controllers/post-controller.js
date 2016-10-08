@@ -10,9 +10,16 @@ postController.createPost = (req, res) => {
   newPost.title = bodyObj.title;
   newPost.body = bodyObj.body;
   newPost.user_id = bodyObj.user_id;
+  newPost.status = bodyObj.status;
+  newPost.post_type = bodyObj.post_type;
+  newPost.uri = bodyObj.uri;
+
 
   newPost.save(function(err){
-    if (err) throw err;
+    if (err) {
+      console.log(err);      
+      throw err;
+    }
   });
 
   res.sendStatus(200);
