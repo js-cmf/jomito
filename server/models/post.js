@@ -15,7 +15,7 @@ const postSchema = new Schema({
   img_urls: {type: Array, default: []},
   video_urls: {type: Array, default: []},
   uri: {type: String, default: ""},
-  n_comments: {type: Numbeßr, default: 0}
+  n_comments: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model('Post', postSchema);

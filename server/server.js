@@ -98,7 +98,14 @@ app.delete('/api/collection_item/:item_id', collectionItemController.deleteColle
 // delete all items in collection
 app.delete('/api/collection_items/:collection_id', collectionItemController.deleteCollectionItemsById);
 
+
+// ** PLUGINS **
+const pluginsRoutes = require('./plugins'); 
+require('./plugins/comment-routes')(app);
+
+
 // spinning up the server 
 app.listen(3000, function () {
   console.log('JoMiTo listening on port 3000!');
 });
+
