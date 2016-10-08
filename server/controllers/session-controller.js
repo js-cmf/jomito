@@ -2,10 +2,12 @@ const Session = require('../models/session');
 
 var sessionController = {};
 
+// middleware to create the token and save it to the
+// database
 sessionController.startSession = (cookieId, callback) => {
   console.log('saving github token in mongo', cookieId);
   var session = new Session();
-  session.cookieId = cookieId.toString();
+  session.cookieId = cookieId;
   session.save(function(err){
       if (err) throw err;
     })

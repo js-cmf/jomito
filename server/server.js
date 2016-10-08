@@ -35,12 +35,6 @@ app.use((req, res, next) => {
 });
 app.use(express.static('client'));
 
-// app.get('/login.html', (req, res) => {
-//     res.sendFile(path.join(__dirname + './../client/components/login.html'));
-// });
-// app.get('/login.js', (req, res) => {
-//     res.sendFile(path.join(__dirname + './../client/components/login.js'));
-// });
 app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname + './../client/components/dashboard.html'));
 });
