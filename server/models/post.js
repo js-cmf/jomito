@@ -12,8 +12,10 @@ const postSchema = new Schema({
   status: {type: String, required: true, default: "draft"},
   user_id: {type: String, required: true},
   post_type: {type: Array, required: true, default: ['post']},
-  img_urls: Array,
-  video_urls: Array,
+  img_urls: {type: Array, default: []},
+  video_urls: {type: Array, default: []},
+  uri: {type: String, default: ""},
+  n_comments: {type: Numbeßr, default: 0}
 });
 
 module.exports = mongoose.model('Post', postSchema);

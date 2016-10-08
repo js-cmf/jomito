@@ -141,6 +141,16 @@ function deleteCollection(e) {
 	}
 	xhr.open('DELETE', '/api/collection/' + collectionId);
 	xhr.send();
+
+	// delete collection items
+	let xhrItem = new XMLHttpRequest();
+	xhrItem.onreadystatechange = () => {
+		if(xhrItem.status === 200 && xhrItem.readyState === 4) {
+			console.log(xhrItem.responseText);
+		}			
+	}
+	xhrItem.open('DELETE', '/api/collection_items/' + collectionId);
+	xhrItem.send();
 }
 
 function removeItem(e) {
