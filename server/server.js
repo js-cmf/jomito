@@ -27,16 +27,14 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log(Date.now(),req.url);
   console.log(res.get('Content-Type'));
+  // Cors
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
 app.use(express.static('client'));
 
-// app.get('/login.html', (req, res) => {
-//     res.sendFile(path.join(__dirname + './../client/components/login.html'));
-// });
-// app.get('/login.js', (req, res) => {
-//     res.sendFile(path.join(__dirname + './../client/components/login.js'));
-// });
 app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname + './../client/components/dashboard.html'));
 });

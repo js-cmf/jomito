@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const cookieController = require('./cookie-controller');
 const bcrypt = require('bcrypt');
+const serverConfig = require('../.server-config');
 
 
 let userController = {};
@@ -23,7 +24,8 @@ userController.createUser = (req, res) => {
     User.findOne({email: newUser.email}, (err,user) => {
       if (err) return res.status(500).send(err);
       if (user) {
-        cookieController.setSSIDCookie(req, res, user._id);
+        let newToken = new Buffer(serverConfig.sessionSecret + user.email).toString('base64');
+        cookieController.setSSIDCookie(req, newToken);
         res.redirect('/dashboard.html');        
       } else {
         res.status(500).send('no user for you');
@@ -75,11 +77,10 @@ userController.verifyUser = (req, res, next) => {
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         console.log("you're right!");
-        cookieController.setSSIDCookie(req, res, user._id);
-        // res.writeHead(200,{'Content-Type':'text/html'})
+        let newToken = new Buffer(serverConfig.sessionSecret + user.email).toString('base64');
+        cookieController.setSSIDCookie(req, res, newToken);
         res.status(302).redirect('/dashboard.html');
-        // return res.status(200).send('sucess!!!'); 
-      } else {
+        } else {
         console.log('access denied... redirecting');
         res.redirect('/');        
       }
