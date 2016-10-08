@@ -2,32 +2,38 @@
 (() => {
 	'use strict'
 
-	// const postData = document.getElementById('post-data');
+	const postData = document.getElementById('post-data');
 	
-	// postData.onsubmit = (e) => {
-	// 	e.preventDefault();
-	// 	const title = document.getElementById('post-title').value;
-	// 	const body = document.getElementById('post-body').value;
-	// 	const status = document.getElementById('post-status-display').textContent;
-	// 	const type = document.getElementById('post_type').value;
-	// 	const user = 'Mario';
-	// 	const imgUrl = [];
-	// 	const videoEmbed = [];
-	// 	// const publishDate = document.getElementById().value;
-	// 	console.log('we executed')
-	// 	if (title !== '' && body !== '') {
-	// 		let data = {};
-	// 		data.title = title;
-	// 		data.body = body;
-	// 		data.status = status;
-	// 		data.post_type = type;
-	// 		data.user_id = user; 
-	// 			console.log(data)
-	// 		createPost(data);
-	// 	} else {
-	// 		alert('title and post required');
-	// 	}
-	// }
+	postData.onsubmit = (e) => {
+		e.preventDefault();
+		const title = document.getElementById('post-title').value;
+		const body = document.getElementById('post-body').value;
+		const status = document.getElementById('post-status-display').textContent;
+		const type = document.getElementById('post_type').value;
+		const user = 'Mario';
+
+		const imgUrl = [];
+		const videoEmbed = [];
+		// const publishDate = document.getElementById().value;
+		console.log('we executed')
+		if (title !== '' && body !== '') {
+			let data = {};
+			data.title = title;
+			data.body = body;
+			data.status = status;
+			data.post_type = type;
+			data.user_id = user; 
+			data.uri = createUri(title);
+				console.log(data)
+			createPost(data);
+		} else {
+			alert('title and post required');
+		}
+	}
+	
+	function createUri(str) {
+		return str.replace(/ /g,"-");
+	}
 
 	function createPost(data) {
 		const req = new XMLHttpRequest();
@@ -41,6 +47,8 @@
 		req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 		req.send(JSON.stringify(data));
 	}
+
+	
 
 	const posts = document.getElementById('post-list');
 	// console.log(posts)
@@ -75,10 +83,10 @@
 	// function 	
 	const a = document.getElementById('get-post');
 	a.onclick = getSinglePost;
-	function getSinglePost() {
+	function getSinglePost(id) {
 		console.log('in get single post')
 		var req = new XMLHttpRequest();
-		req.open('GET', '/api/post/57f403a10fa83d2b05d7164d', true);
+		req.open('GET', '/api/post/' + id, true);
 		req.onload = function() {
 			if (req.status >= 200 && req.status < 400) {
 				// Success!
@@ -104,12 +112,7 @@
 				let status = document.createElement("li");
 				status.textContent = data.status;
 				status_container.appendChild(status);
-				// data.forEach(function (item) {
-				// 	let list = document.createElement("li");
-				// 	list.textContent = item.title;
-				// 	posts.appendChild(list);
-				// 	console.log(list);
-				// });
+				
 			} else {
 				// We reached our target server, but it returned an error
 				console.log('error dawg')
@@ -122,7 +125,7 @@
 
 		req.send();
 	};
-
+	
 	
 
 })();
