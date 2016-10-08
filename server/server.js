@@ -19,13 +19,6 @@ mongoose.connect(dbConfig.url, function(err) {
   console.log('connected to mongoDB @ mlab');
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-  next();
-});
-
 // handling cookies for all requests
 app.use(cookieParser());
 //using bodyParser for json
@@ -34,6 +27,10 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log(Date.now(),req.url);
   console.log(res.get('Content-Type'));
+  // Cors
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
 app.use(express.static('client'));
