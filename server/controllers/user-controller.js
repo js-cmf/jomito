@@ -17,6 +17,7 @@ userController.createUser = (req, res) => {
   newUser.email = bodyObj.email;
   newUser.password = bodyObj.password;
   newUser.name = bodyObj.name;
+  newUser.blog_id = bodyObj.blog_id;
 
   newUser.save(function(err){
     if (err) throw err;
@@ -25,7 +26,7 @@ userController.createUser = (req, res) => {
       if (err) return res.status(500).send(err);
       if (user) {
         let newToken = new Buffer(serverConfig.sessionSecret + user.email).toString('base64');
-        cookieController.setSSIDCookie(req, newToken);
+        cookieController.setSSIDCookie(req, res, newToken);
         res.redirect('/dashboard.html');        
       } else {
         res.status(500).send('no user for you');
@@ -89,6 +90,6 @@ userController.verifyUser = (req, res, next) => {
       return res.status(500).send("user not found");
     }     
   });
-;}
+};
 
 module.exports = userController;

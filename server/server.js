@@ -6,6 +6,7 @@ const dbConfig = require('./db.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const blogController = require('./controllers/blog-controller');
 const postController = require('./controllers/post-controller');
 const userController = require('./controllers/user-controller');
 const sessionController = require('./controllers/session-controller');
@@ -41,6 +42,22 @@ app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
 // ** authentication - authorized routes **
 // login
 app.post('/login', userController.verifyUser);
+
+// ** blog ** 
+// blog creation route
+app.post('/api/blog', blogController.createBlog);
+
+// listing all the blogs
+app.get('/api/blogs', blogController.getAllBlogs);
+
+// listing a specific blog
+app.get('/api/blog/:blog_id', blogController.getBlogById);
+
+// updating a specific blog
+app.put('/api/blog/:blog_id', blogController.updateBlogById);
+
+// deleting a specific blog
+app.delete('/api/blog/:blog_id', blogController.deleteBlogById);
 
 // ** post ** 
 // post creation route
