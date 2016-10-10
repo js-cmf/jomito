@@ -12,7 +12,7 @@ module.exports = {
     port: 7700,
     historyApiFallback: true,
     proxy: {
-      '/api/*': 'http://localhost:3000'
+      '/api/*': 'http://localhost:3000',
     },
   },
   resolve: {
