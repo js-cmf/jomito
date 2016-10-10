@@ -1,5 +1,4 @@
 const sessionController = require('./session-controller');
-// const cookie = require('cookie-parser');
 
 let cookieController = {};
 

@@ -14,7 +14,6 @@ postController.createPost = (req, res) => {
   newPost.post_type = bodyObj.post_type;
   newPost.uri = bodyObj.uri;
 
-
   newPost.save(function(err){
     if (err) {
       console.log(err);      
