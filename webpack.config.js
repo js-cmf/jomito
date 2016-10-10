@@ -11,6 +11,9 @@ module.exports = {
     inline: true,
     port: 7700,
     historyApiFallback: true,
+    proxy: {
+      '/api/*': 'http://localhost:3000'
+    },
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
