@@ -4,7 +4,7 @@
   "description": "FullStack Javascript CMS",
   "main": "index.js",
   "bin": {
-    "synthesis": "./index.js"
+    "syn": "./index.js"
   },
   "scripts": {
     "start": "nodemon server/server.js",
@@ -25,13 +25,17 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "mongoose": "^4.6.2",
     "nodemon": "^1.10.2",
+    "progress": "^1.1.8",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "superagent": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
