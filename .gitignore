@@ -38,3 +38,6 @@ jspm_packages
 
 # server config
 server/.server-config.js
+
+# ignoring dist folder
+dist
