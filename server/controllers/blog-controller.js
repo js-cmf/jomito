@@ -5,7 +5,7 @@ let blogController = {};
 
 // create the blog on mongoDB
 blogController.createBlog = (req, res) => {
-  // console.log(req.body);
+  console.log('this is the body: %s',req.body);
 
   let bodyObj = req.body;
 
