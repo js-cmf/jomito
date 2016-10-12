@@ -2,13 +2,9 @@
 const co = require('co');
 const prompt = require('co-prompt');
 const program = require('commander');
-// const dbConfig = require('./server/db.js');
-// const mongoose = require('mongoose');
 const fs = require('fs');
 const progressBar = require('progress');
 const request = require('superagent');
-// const User = require('./server/models/user');
-// const Blog = require('./server/models/blog');
 
 console.log('welcome, hi there, we\'re team synthesis!');
 
@@ -27,42 +23,71 @@ program
       let name = yield prompt('name: ');
       console.log('user: %s and blog %s created!',
         email, blog);
-      // //creating the blog
-      // let newBlog = {};
-      // newBlog.title = blogtTitle;
-      // newBlog.description = blogDescription;
-      // newBlog.user_id = '1001';  
-      // newBlog.blog_id = '101';
+      // process.exit();
+      //creating the blog
+      let newBlog = {};
+      newBlog.title = blogTitle;
+      newBlog.description = blogDescription;
+      newBlog.user_id = '1001';  
+      newBlog.blog_id = '101';
       // console.log('after newBlog obj', newBlog);
 
-    //   // creating the user
-    //   let newUser = {};
-    //   newUser.email = email;
-    //   newUser.password = password;
-    //   newUser.name = name;
-    //   newUser.blog_id = '101';      
-    //   console.log('after newUser');
-    //   // posting blog to the api
-    //   request
-    //    .post('http://localhost:3000/api/blog')
-    //    .set('Accept', 'application/json')
-    //    .send(JSON.stringify(newBlog))       
-    //    .end(function (err, res) {
-    //      if (err) console.log(err);         
-    //      var link = res.body.links.html.href;
-    //      console.log('blog created: %s', link);
-    //    });
 
-    //   // posting user to the api
-    //   request
-    //    .post('http://localhost:3000/api/user')
-    //    .send(JSON.stringify(newUser))
-    //    .set('Accept', 'application/json')
-    //    .end(function (err, res) {
-    //      if (err) console.log(err);
-    //      var link = res.body.links.html.href;
-    //      console.log('User created: %s', link);
-    //    });
+      // creating the user
+      let newUser = {};
+      newUser.email = email;
+      newUser.password = password;
+      newUser.name = name;
+      newUser.blog_id = '101';   
+      console.log('after newUser');
+
+      // http.get('http://localhost:3000/api/posts', (res) => {
+      //   console.log(`Got response: ${res.statusCode}`);
+      //   // consume response body
+      //   res.resume();
+      // }).on('error', (e) => {
+      //   console.log(`Got error: ${e.message}`);
+      // });
+      // posting blog to the api
+          // sendRequest function() {
+          //   return new Promise((resolve,reject) => {
+          //     console.log()
+
+
+      // var fileSize = fs.statSync(blog).size;
+      // var fileStream = fs.createReadStream(blog);
+      // var barOpts = {
+      //   width: 20,
+      //   total: fileSize,
+      //   clear: true
+      // };
+      // var bar = new ProgressBar(' uploading [:bar] :percent :etas', barOpts);
+
+      // fileStream.on('data', function (chunk) {
+      //   bar.tick(chunk.length);
+      // });
+
+      request
+       .post('http://localhost:3000/api/blog')
+       .set('Accept', 'application/json')
+       .send(newBlog)       
+       .end(function (err, res) {
+         if (err) console.log(err);        
+        //  var link = res.body.links.html.href;
+         console.log('blog created: %s', res.body, JSON.stringify(newBlog));
+       });
+
+      // posting user to the api
+      request
+       .post('http://localhost:3000/api/user')
+       .send(newUser)
+       .set('Accept', 'application/json')
+       .end(function (err, res) {
+         if (err) console.log(err);
+         console.log('user created: %s', res.body, JSON.stringify(newUser));
+       });
+
+      // process.exit();    
     })
   })
   .parse(process.argv)
