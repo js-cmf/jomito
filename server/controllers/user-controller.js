@@ -80,7 +80,7 @@ userController.verifyUser = (req, res, next) => {
         console.log("you're right!");
         let newToken = new Buffer(serverConfig.sessionSecret + user.email).toString('base64');
         cookieController.setSSIDCookie(req, res, newToken);
-        res.status(302).send('logging in..');
+        res.status(302).send(newToken);
         } else {
         console.log('access denied... redirecting');
         res.redirect('/');        
