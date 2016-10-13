@@ -28869,10 +28869,10 @@
 					xhr.onreadystatechange = function () {
 						if (xhr.status === 302 && xhr.readyState === 4) {
 							localStorage.setItem('token', xhr.responseText);
-							window.location = 'http://localhost:7700/#/dashboard/posts';
+							window.location = '/#/dashboard/posts';
 						}
 					};
-					xhr.open('POST', 'http://localhost:3000/login');
+					xhr.open('POST', '/login');
 					xhr.setRequestHeader('Content-Type', 'application/json');
 					xhr.send(JSON.stringify(userData));
 				}
