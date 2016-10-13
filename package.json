@@ -1,6 +1,9 @@
 {
   "name": "jomito",
   "version": "1.0.0",
+  "engines": {
+	"node": "6.4.0"
+  },
   "description": "FullStack Javascript CMS",
   "main": "index.js",
   "bin": {
