@@ -7,13 +7,9 @@ const progressBar = require('progress');
 const request = require('superagent');
 
 console.log('welcome, hi there, we\'re team synthesis!');
-
+console.log('run: syn <blogName> or syn -h');
 program
   .arguments('<blog>')
-  .option('-f, --force-reload', 'force reload your plugin')
-  .option('-n, --new-plugin', 'creates a new plugin for synthesis')
-  .option('-u, --username <username>', 'set user for plugin')
-  .option('-p, --password <password>', 'set password for plugin')  
   .action(function (blog) {
     co(function *() {
       let blogTitle = yield prompt('blog title: ');
