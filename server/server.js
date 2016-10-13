@@ -35,10 +35,12 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static('client'));
+app.use(express.static('dist'));
 
 app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname + './../client/components/dashboard.html'));
 });
+
 // ** authentication - authorized routes **
 // login
 app.post('/login', userController.verifyUser);
