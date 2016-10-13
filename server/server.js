@@ -118,9 +118,11 @@ app.delete('/api/collection_items/:collection_id', collectionItemController.dele
 const pluginsRoutes = require('./plugins'); 
 require('./plugins/comment-routes')(app);
 
+// configuring env production port
+const PORT = process.env.PORT || 3000
 
 // spinning up the server 
-app.listen(3000, function () {
-  console.log('JoMiTo listening on port 3000!');
+app.listen(PORT, function () {
+  console.log('JoMiTo listening on port %s!', PORT);
 });
 
