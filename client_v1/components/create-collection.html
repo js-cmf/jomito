@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>create collection</title>
+</head>
+<body>
+	<form id="create-collection-form">
+		<label>Create a Collection</label>
+		<input id="collection-title" type="text" name="collection-title" placeholder="Collection name" />
+		<fieldset>
+			<input type="text" name="collection-property" placeholder="Collection property" />
+			<select id="collection-property-type">
+			  <option value="string">text</option>
+			  <option value="number">number</option>
+			  <option value="boolean">boolean</option>
+			</select>
+		</fieldset>
+		<button id="collection-add-property-btn">Add Property</button>
+		<button type="submit" id="create-collection-form-submit">Create Collection</button>
+	</form>
+	<a href="./collections-list.html">Collection List</a>
+<script type="text/javascript" src="./create-collection.js"></script>
+</body>
+</html>
