@@ -9,14 +9,17 @@ pluginController.createPlugin = (req, res) => {
 
   let newPlugin = new Plugin();
   newPlugin.name = bodyObj.name;
-  newPlugin.plugin_properties = bodyObj.properties;
-  newPlugin.mount_point = bodyObj.user_id;
+  newPlugin.mount_point = bodyObj.mount_point;
+  newPlugin.plugin_properties = bodyObj.plugin_properties;
 
   newPlugin.save(function(err){
-    if (err) throw err;
+    if (err.code === 11000) {
+        // Duplicate plugin
+        return res.status(500).send({ success: false, message: 'Plugin already exist!' });
+      } else {
+        return res.sendStatus(200);
+      }
   });
-
-  return res.sendStatus(200);
 };
 
 //listing all the plugins
