@@ -37,7 +37,7 @@ jspm_packages
 .node_repl_history
 
 # server config
-#server/.server-config.js
+server/.server-config.js
 
 # ignoring dist folder
-#dist
+dist
