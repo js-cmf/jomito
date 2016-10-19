@@ -9,8 +9,8 @@ pluginController.createPlugin = (req, res) => {
 
   let newPlugin = new Plugin();
   newPlugin.name = bodyObj.name;
-  newPlugin.plugin_properties = bodyObj.properties;
-  newPlugin.mount_point = bodyObj.user_id;
+  newPlugin.mount_point = bodyObj.mount_point;
+  newPlugin.plugin_properties = bodyObj.plugin_properties;
 
   newPlugin.save(function(err){
     if (err) throw err;
