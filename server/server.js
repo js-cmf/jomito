@@ -13,6 +13,8 @@ const sessionController = require('./controllers/session-controller');
 const cookieController = require('./controllers/cookie-controller');
 const collectionController = require('./controllers/collection-controller');
 const collectionItemController = require('./controllers/collection-item-controller');
+const pluginController = require('./controllers/plugin-controller');
+const pluginItemController = require('./controllers/plugin-item-controller');
 
 //connecting to the database
 mongoose.connect(dbConfig.url, function(err) {
@@ -35,10 +37,12 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static('client'));
+app.use(express.static('dist'));
 
 app.get('/dashboard.html', sessionController.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname + './../client/components/dashboard.html'));
 });
+
 // ** authentication - authorized routes **
 // login
 app.post('/login', userController.verifyUser);
@@ -113,14 +117,34 @@ app.delete('/api/collection_item/:item_id', collectionItemController.deleteColle
 // delete all items in collection
 app.delete('/api/collection_items/:collection_id', collectionItemController.deleteCollectionItemsById);
 
+// ** plugins **
+// plugin item creation route
+app.post('/api/plugin', pluginController.createPlugin);
+// getting all the plugin s
+app.get('/api/plugins', pluginController.getAllPlugins);
+// deleting a specific plugin 
+app.delete('/api/plugin/:plugin_id', pluginController.deletePluginById);
+// delete all s in plugin
+app.delete('/api/plugin/:plugin_id', pluginController.deletePluginById);
+
+// ** plugin items **
+// plugin item creation route
+app.post('/api/plugin_item', pluginItemController.createPluginItem);
+// getting all the plugin items
+app.get('/api/plugin_items', pluginItemController.getAllPluginItems);
+// deleting a specific item
+app.delete('/api/plugin_item/:plugin_item_id', pluginItemController.deletePluginItemById);
+// delete all items in plugin
+app.delete('/api/plugin_item/:plugin_item_id', pluginItemController.deletePluginItemById);
 
 // ** PLUGINS **
 const pluginsRoutes = require('./plugins'); 
 require('./plugins/comment-routes')(app);
 
+// configuring env production port
+const PORT = process.env.PORT || 3000
 
 // spinning up the server 
-app.listen(3000, function () {
-  console.log('JoMiTo listening on port 3000!');
+app.listen(PORT, function () {
+  console.log('JoMiTo listening on port %s!', PORT);
 });
-

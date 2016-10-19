@@ -7,13 +7,9 @@ const progressBar = require('progress');
 const request = require('superagent');
 
 console.log('welcome, hi there, we\'re team synthesis!');
-
+console.log('run: syn <blogName> or syn -h');
 program
   .arguments('<blog>')
-  .option('-f, --force-reload', 'force reload your plugin')
-  .option('-n, --new-plugin', 'creates a new plugin for synthesis')
-  .option('-u, --username <username>', 'set user for plugin')
-  .option('-p, --password <password>', 'set password for plugin')  
   .action(function (blog) {
     co(function *() {
       let blogTitle = yield prompt('blog title: ');
@@ -21,8 +17,8 @@ program
       let email = yield prompt('email account: ');
       let password = yield prompt.password('password: ');
       let name = yield prompt('name: ');
-      console.log('user: %s and blog %s created!',
-        email, blog);
+      //console.log('user: %s and blog %s created!',
+      //  email, blog);
       // process.exit();
       //creating the blog
       let newBlog = {};
@@ -39,7 +35,7 @@ program
       newUser.password = password;
       newUser.name = name;
       newUser.blog_id = '101';   
-      console.log('after newUser');
+      //console.log('after newUser');
 
       // http.get('http://localhost:3000/api/posts', (res) => {
       //   console.log(`Got response: ${res.statusCode}`);
@@ -67,6 +63,8 @@ program
       //   bar.tick(chunk.length);
       // });
 
+      console.log("...");
+      console.log("... creating blog");
       request
        .post('http://localhost:3000/api/blog')
        .set('Accept', 'application/json')
@@ -74,19 +72,25 @@ program
        .end(function (err, res) {
          if (err) console.log(err);        
         //  var link = res.body.links.html.href;
-         console.log('blog created: %s', res.body, JSON.stringify(newBlog));
+        // console.log('blog created: %s', res.body, JSON.stringify(newBlog));
        });
 
+      console.log("... OK... DONE");
+
+
       // posting user to the api
+      console.log("...");
+      console.log("... creating user");
       request
        .post('http://localhost:3000/api/user')
        .send(newUser)
        .set('Accept', 'application/json')
        .end(function (err, res) {
          if (err) console.log(err);
-         console.log('user created: %s', res.body, JSON.stringify(newUser));
+         //console.log('user created: %s', res.body, JSON.stringify(newUser));
        });
 
+      console.log("... OK... DONE");
       // process.exit();    
     })
   })

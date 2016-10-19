@@ -1,5 +1,6 @@
 body{
-  background: cornflowerblue;
+  background: white;
+  margin: 1em;
 }
 /*// to fix visibility for the body content form on post.html*/
 .form-group{
