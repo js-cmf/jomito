@@ -13,10 +13,13 @@ pluginController.createPlugin = (req, res) => {
   newPlugin.plugin_properties = bodyObj.plugin_properties;
 
   newPlugin.save(function(err){
-    if (err) throw err;
+    if (err.code === 11000) {
+        // Duplicate plugin
+        return res.status(500).send({ success: false, message: 'Plugin already exist!' });
+      } else {
+        return res.sendStatus(200);
+      }
   });
-
-  return res.sendStatus(200);
 };
 
 //listing all the plugins
