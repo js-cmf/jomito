@@ -17,7 +17,8 @@ pluginController.createPlugin = (req, res) => {
       if (err.code === 11000) {
         // Duplicate plugin
         return res.status(500).send({ success: false, message: 'Plugin already exist!' });
-      } 
+      }
+      return res.status(500).send({ success: false, message: 'Plugin not saved!' });
     } else {
       return res.sendStatus(200);
     }
